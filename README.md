@@ -1,2 +1,2 @@
 # Real_Tech_Influence
-Influences of tech HQs on adjacent real estate prices 
+Visualizing the influence (or lack thereof) that the introduction of anticipated tech HQs have on adjacent real estate prices in Chicago. 
