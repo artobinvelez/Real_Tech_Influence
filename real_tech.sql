@@ -13,5 +13,6 @@ CREATE TABLE business_licenses (
     license_start_date VARCHAR(20),
     latitude Integer,
     longitude Integer,
+    start_year Integer,
     PRIMARY KEY (index_label)
 )
