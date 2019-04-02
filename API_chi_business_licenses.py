@@ -66,9 +66,19 @@ core_info_busi_licences = all_7_zipcodes[['legal_name', 'doing_business_as_name'
                                         'business_activity', 'application_type', 
                                         'license_start_date', 'latitude', 'longitude']]
 
+# Add sepearate column for just the start year
+# Will use later when selecting year businesess were created
+core_info_busi_licences['start_year'] = core_info_busi_licences['license_start_date']
+
+# Edit 'start_year' to just include year from date information
+core_info_busi_licences['start_year'] = core_info_busi_licences['start_year'].str[0:4]
+
 # Get rid of NaN values in 'latitude' and 'license_start_date'
 drop_nulls_latitudes = core_info_busi_licences.dropna(subset=['latitude'])
 updated_business_licenses = drop_nulls_latitudes.dropna(subset=['license_start_date'])
+
+# Cast 'start_year' column as an integer
+updated_business_licenses['start_year'] = updated_business_licenses['start_year'].astype('int64')
 
 # Declare a Base using `automap_base()`
 Base = automap_base()
