@@ -15,7 +15,9 @@ from config2 import mysql_password
 ### -- Connect to Chicago Data Portal API - Business Licenses Data -- ###
 ##########################################################################
 # Build API URL
-target_URL = f"https://data.cityofchicago.org/resource/xqx5-8hwx.json?$$app_token={API_chi_key}&zip_code="
+# API calls = 8000 (based on zipcode and issued search results)
+# Filters: 'application type' Issued
+target_URL = f"https://data.cityofchicago.org/resource/xqx5-8hwx.json?$$app_token={API_chi_key}&$limit=8000&application_type=ISSUE&zip_code="
 
 # create list of zipcodes we are examining based
 # on three different businesses of interest
@@ -55,11 +57,6 @@ all_7_zipcodes = zip_60610_data
 for zipcodes_df in zip_data:
     all_7_zipcodes = all_7_zipcodes.append(zipcodes_df)
 
-# Append json objects to all_7_zipcode DF
-# Print length of all_7_zipcode to check adding correctly
-for zipcodes_df in zip_data:
-    all_7_zipcodes = all_7_zipcodes.append(zipcodes_df)
-
 # Select certain columns to show 
 core_info_busi_licences = all_7_zipcodes[['legal_name', 'doing_business_as_name',
                                         'zip_code', 'license_description', 
@@ -73,12 +70,12 @@ core_info_busi_licences['start_year'] = core_info_busi_licences['license_start_d
 # Edit 'start_year' to just include year from date information
 core_info_busi_licences['start_year'] = core_info_busi_licences['start_year'].str[0:4]
 
+# Cast 'start_year' column as an integer
+core_info_busi_licences['start_year'] = core_info_busi_licences['start_year'].astype('int64')
+
 # Get rid of NaN values in 'latitude' and 'license_start_date'
 drop_nulls_latitudes = core_info_busi_licences.dropna(subset=['latitude'])
 updated_business_licenses = drop_nulls_latitudes.dropna(subset=['license_start_date'])
-
-# Cast 'start_year' column as an integer
-updated_business_licenses['start_year'] = updated_business_licenses['start_year'].astype('int64')
 
 # Declare a Base using `automap_base()`
 Base = automap_base()
@@ -86,7 +83,7 @@ Base = automap_base()
 # Create engine using the `demographics.sqlite` database file
 # engine = create_engine("sqlite://", echo=False)
 
-engine = create_engine(f'mysql://root:coolcat1015@localhost:3306/real_tech_db')
+engine = create_engine(f'mysql://root:{mysql_password}@localhost:3306/real_tech_db')
 
 # Copy 'core_info_busi_licenses' db to MySql database
 updated_business_licenses.to_sql('business_licenses', 
