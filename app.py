@@ -49,7 +49,7 @@ def setup():
 @app.route("/")
 def home():
     """Render Home Page."""
-    return render_template("index.html")
+    return render_template("index.html", bus_licenses=bus_licenses)
 
 
 @app.route("/api")
