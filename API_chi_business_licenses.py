@@ -211,7 +211,7 @@ Base = automap_base()
 # Create engine using the `demographics.sqlite` database file
 # engine = create_engine("sqlite://", echo=False)
 
-engine = create_engine(f'mysql://root:coolcat1015@localhost:3306/real_tech_db')
+engine = create_engine(f'mysql://root:{mysql_password}@localhost:3306/real_tech_db')
 
 
 # In[27]:
