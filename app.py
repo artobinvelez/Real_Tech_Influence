@@ -1,4 +1,8 @@
+# testing out old app.py that will use json format with leaflet to 
+# create markers 
+
 import pandas as pd
+import json
 
 from flask import (
     Flask,
@@ -50,16 +54,22 @@ def setup():
 def home():
     """Render Home Page."""
     # Query for the top 10 emoji data
+    return render_template("index.html", bus_licenses=bus_licenses,)
+
+
+@app.route("/api")
+def select_one_business():
+    """Select one of the three businesses: McDonalds, Groupon or Coyote"""
     results = db.session.query(bus_licenses.doing_business_as_name, bus_licenses.zip_code, bus_licenses.latitude, bus_licenses.longitude, bus_licenses.start_year, bus_licenses.license_description, bus_licenses.business_activity)
     data = results.all()
     geojson_list = []
-    for d in data:
-        # print('data:', d)
+    for d in data[:100]:
+        print('data:', d)
         geojson_list.append({
         "type": "Feature",
         "geometry": {
             "type": "Point",
-            "coordinates": [d[2], d[3]]
+            "coordinates": [float(d[2]), float(d[3])]
         },
         "properties": {
             "name": d[0],
@@ -69,14 +79,12 @@ def home():
             "activity": d[6]
         }
     })
-    geojson = jsonify(geojson_list)
-    return render_template("index.html", bus_licenses=bus_licenses, geojson=geojson)
+    geojson = json.dumps(geojson_list)
+    return geojson
 
-
-@app.route("/api")
-def select_one_business():
-    """Select one of the three businesses: McDonalds, Groupon or Coyote"""
-    return {}
+    # geojson = json.dumps({'data': geojson_list})
+    # print(geojson)
+    # return {}
 
 if __name__ == '__main__':
     app.run(debug=True)
