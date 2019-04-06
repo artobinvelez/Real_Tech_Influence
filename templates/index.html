@@ -28,27 +28,48 @@
   <div class="container">
     <div class="row">
       <div class="col-md-12 jumbotron text-center">
-        <h1>Real Tech</h1>
-        <h5>Exploring effects of major businesses moving in on realestate prices and other business licenses</h5>
+        <h1>Headquarter Location Influence</h1>
+        <h5>Visiualizing the influence that the introduction of anticipated headquarters have on adjacent service orinented businesses. Focused on  McDonald's (West Loop), Groupon (Cabrini Green) and Coyote Logistics (Logan Square/Bucktown) headquarters locations.   </h5>
       </div>
     </div>
     <div class="row">
       <div class="col-md-3 box">
         <div class="main_businesses">
-          <img class="mcdonalds_img"src="static/Ronald-McDonald.png">
-          McDonalds
+
+	
+        
+            <input name="mcButton" type="button" value="McDonalds" onClick="zoomTo(locMC);" />
+            <input name="gruButton" type="button" value="Groupon" onClick="zoomTo(locGru);"/>
+            <input name="coyBotton" type="button" value="Coyote" onClick="zoomTo(locCoy);"/>
+            <script>
+            
+              var locMC = new L.LatLng(41.883486, -87.653842);
+              var locGru = new L.LatLng(41.897692, -87.643751);
+              var locCoy = new L.LatLng(41.931738, -87.692132)
+              
+              function zoomTo(location) {
+                map.setView(location, map.getZoom());			
+                }	
+                
+            </script>
+
+
+            <!-- <button type="button" class="btn btn-default">McDonalds</button> -->
+
+<!--     
         </div>
         <div class="main_businesses">
-            <img class="mcdonalds_img"src="static/Ronald-McDonald.png">
-            McDonalds
+            <button type="button" class="btn btn-default">Groupon</button>
+           
         </div>
         <div class="main_businesses">
-            <img class="coyote_img" src="static/logo-coyote-us.jpg">
-            Coyote Logistics
+            <button type="button" class="btn btn-default">Coyote</button> -->
+          
         </div>
       </div>
       <div class="col-md-7" id=map>
-      </div>
+
+            
     </div>
   </div>
 
