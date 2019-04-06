@@ -1,4 +1,4 @@
-#body {
+/* #body {
   background: #87CEEB;
 }
 
@@ -8,18 +8,18 @@ html {
   height: 600px;
 }
 
-.box {
+ .box {
   height: 500px;
-  padding: 10px;
+  padding: 20px;
   margin: 5px;
   font-weight: 200;
   color: black;
   border-radius: 5px;
   background-color: white;
-}
+} 
 
 .main_businesses {
-  height: 100px;
+  height: 50px;
   padding: 5px;
   margin: 5px;
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
@@ -31,5 +31,6 @@ html {
 }
 
 .coyote_img {
-  height: 60%;
+  height: 60%; 
+
 }
