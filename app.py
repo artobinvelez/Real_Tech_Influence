@@ -1,6 +1,3 @@
-# testing out old app.py that will use json format with leaflet to 
-# create markers 
-
 import pandas as pd
 import json
 
@@ -69,7 +66,7 @@ def select_one_business():
         "type": "Feature",
         "geometry": {
             "type": "Point",
-            "coordinates": [float(d[2]), float(d[3])]
+            "coordinates": [float(d[3]), float(d[2])]
         },
         "properties": {
             "name": d[0],
@@ -79,7 +76,7 @@ def select_one_business():
             "activity": d[6]
         }
     })
-    geojson = json.dumps(geojson_list)
+    geojson = json.dumps({"type": "FeatureCollection", "features": geojson_list})
     return geojson
 
     # geojson = json.dumps({'data': geojson_list})

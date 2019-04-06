@@ -7,9 +7,6 @@ var map = L.map("map", {
   zoom: 13
 });
 
-// L.marker([41.903905986, -87.634626237]).addTo(map);
-
-
 // Adding tile layer
 L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
   attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
@@ -26,24 +23,40 @@ var api_link = "http://localhost:5000/api"
 
 // Grabbing our GeoJSON data..
 d3.json(link, function(data) {
+  console.log(data)
   // Creating a GeoJSON layer with the retrieved data
   L.geoJson(data).addTo(map);
 });
 
-d3.json(api_link, function(response) {
+d3.json(api_link, function(data) {
+  L.geoJSON(data).addTo(map);
+})
 
-  // console.log(response);
+// headquarter markers
+var mcdIcon = L.icon({
+  iconUrl: 'static/Mcdonalds_logo.png',
 
-  for (var i = 0; i < response.length; i++) {
-    var location = response[i].geometry;
-    // console.log(location)
-    if (location) {
-      L.marker([location.coordinates[0], location.coordinates[1]]).addTo(map);
-      console.log(location.coordinates)
-    }
-  }
-
+  iconSize:     [70, 70], // size of the icon
 });
+
+L.marker([41.883486, -87.653842], {icon: mcdIcon}).addTo(map);
+
+var groupIcon = L.icon({
+  iconUrl: 'static/groupon.png',
+
+  iconSize:     [50, 50], // size of the icon
+});
+
+L.marker([41.897692, -87.643751], {icon: groupIcon}).addTo(map);
+
+var coyIcon = L.icon({
+  iconUrl: 'static/Coyote.png',
+
+  iconSize:     [50, 50], // size of the icon
+});
+
+
+L.marker([41.931738, -87.692132], {icon: coyIcon}).addTo(map);
 
 var mcdIcon = L.icon({
   iconUrl: 'static/Mcdonalds_logo.png',
