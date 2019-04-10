@@ -60,7 +60,7 @@ def select_one_business():
     results = db.session.query(bus_licenses.doing_business_as_name, bus_licenses.zip_code, bus_licenses.latitude, bus_licenses.longitude, bus_licenses.start_year, bus_licenses.license_description, bus_licenses.business_activity)
     data = results.all()
     geojson_list = []
-    for d in data[:100]:
+    for d in data[:]:
         print('data:', d)
         geojson_list.append({
         "type": "Feature",
