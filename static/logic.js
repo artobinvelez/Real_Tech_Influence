@@ -7,7 +7,7 @@ var zipcodeLink = "https://data.cityofchicago.org/resource/unjd-c2ca.geojson";
 d3.json(queryUrl, function(data) {
   // Once we get a response, send the data.features object to the createFeatures function
   // createFeatures(data.features);
-  createLicencesLayers(data.features)
+  createLicensesLayers(data.features)
 });
 
 ///////////////////////////////////////////////////////////
